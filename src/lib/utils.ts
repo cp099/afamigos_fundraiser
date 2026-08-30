@@ -24,8 +24,8 @@ export function getMilestoneInfo(percentage: number): MilestoneInfo {
     return {
       tier: '100+',
       label: 'Goal Achieved',
-      emoji: '🎉',
-      message: 'WE DID IT! AFAmigos hit the goal! 🎉',
+      emoji: '🎯',
+      message: '100% Campaign Goal Successfully Achieved',
       minPercent: 100,
       maxPercent: Infinity,
     };
@@ -34,8 +34,8 @@ export function getMilestoneInfo(percentage: number): MilestoneInfo {
     return {
       tier: '90-99',
       label: 'Final Push',
-      emoji: '🚨',
-      message: 'FINAL PUSH. We are inches away! 🚨',
+      emoji: '🔥',
+      message: 'Entering the final stretch — closing in on our target',
       minPercent: 90,
       maxPercent: 99.9,
     };
@@ -44,8 +44,8 @@ export function getMilestoneInfo(percentage: number): MilestoneInfo {
     return {
       tier: '75-89',
       label: 'Home Stretch',
-      emoji: '👀',
-      message: 'The finish line is getting close. 👀',
+      emoji: '📈',
+      message: 'Three-quarters funded — momentum is building',
       minPercent: 75,
       maxPercent: 89.9,
     };
@@ -53,9 +53,9 @@ export function getMilestoneInfo(percentage: number): MilestoneInfo {
   if (percentage >= 50) {
     return {
       tier: '50-74',
-      label: 'Halfway There',
+      label: 'Halfway Point',
       emoji: '⚡',
-      message: 'Halfway there. Keep the momentum going! ⚡',
+      message: 'Over 50% funded — halfway to our collective goal',
       minPercent: 50,
       maxPercent: 74.9,
     };
@@ -63,18 +63,18 @@ export function getMilestoneInfo(percentage: number): MilestoneInfo {
   if (percentage >= 25) {
     return {
       tier: '25-49',
-      label: 'Picking Up Speed',
-      emoji: '🔥',
-      message: "We're picking up speed. 🔥",
+      label: 'In Progress',
+      emoji: '✨',
+      message: 'Solid progress underway across class contributions',
       minPercent: 25,
       maxPercent: 49.9,
     };
   }
   return {
     tier: '0-24',
-    label: 'Just Starting',
-    emoji: '🚀',
-    message: "We're just getting started. 🚀",
+    label: 'Drive Active',
+    emoji: '🌱',
+    message: 'Campaign drive underway — every contribution counts',
     minPercent: 0,
     maxPercent: 24.9,
   };

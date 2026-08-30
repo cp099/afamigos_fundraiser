@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle, ArrowLeft, HeartHandshake, KeyRound } from 'lucide-react';
+import { Lock, Mail, ArrowRight, ShieldCheck, AlertCircle, ArrowLeft, HeartHandshake } from 'lucide-react';
 import Link from 'next/link';
 
 export function AdminLoginForm() {
@@ -97,20 +97,6 @@ export function AdminLoginForm() {
                   </div>
                   <div className="text-xs text-slate-400">
                     Sponsors 1 child&apos;s complete school fees, books, uniform &amp; nutrition.
-                  </div>
-                </div>
-              </div>
-
-              <div className="craft-card rounded-2xl p-4 flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 shrink-0">
-                  <KeyRound className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-                    Secure Firebase Authentication
-                  </div>
-                  <div className="text-xs text-slate-400">
-                    Protected admin dashboard with zero public financial exposure.
                   </div>
                 </div>
               </div>
