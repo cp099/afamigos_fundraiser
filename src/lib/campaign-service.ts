@@ -323,18 +323,28 @@ export async function addContribution(
   amount: number,
   note?: string
 ): Promise<void> {
-  const numericAmount = Number(amount);
-  if (!studentId || !studentName || numericAmount <= 0) {
-    throw new Error('Valid student and contribution amount greater than 0 are required.');
+  const sanitizedAmount = Math.round((Number(amount) || 0) * 100) / 100;
+  const trimmedId = (studentId || '').trim();
+  const trimmedName = (studentName || '').trim();
+  const sanitizedNote = (note || '').trim().slice(0, 250);
+
+  if (!trimmedId || !trimmedName) {
+    throw new Error('Please select a valid student from the roster.');
+  }
+  if (isNaN(sanitizedAmount) || sanitizedAmount <= 0) {
+    throw new Error('Contribution amount must be greater than ₹0.');
+  }
+  if (sanitizedAmount > 10000000) {
+    throw new Error('Contribution amount exceeds allowable limit.');
   }
 
   const newId = 'c_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
   const contributionData: Omit<Contribution, 'id'> = {
-    studentId,
-    studentName,
-    amount: numericAmount,
+    studentId: trimmedId,
+    studentName: trimmedName,
+    amount: sanitizedAmount,
     createdAt: Date.now(),
-    note: note || '',
+    note: sanitizedNote,
   };
 
   if (isFirebaseConfigured() && db) {
@@ -351,7 +361,7 @@ export async function addContribution(
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         action: 'add_contribution',
-        payload: { studentId, studentName, amount: numericAmount, note },
+        payload: { studentId: trimmedId, studentName: trimmedName, amount: sanitizedAmount, note: sanitizedNote },
       }),
     });
   } catch (e) {
@@ -371,23 +381,37 @@ export async function updateContribution(
   amount: number,
   note?: string
 ): Promise<void> {
-  const numericAmount = Number(amount);
-  if (!id || !studentId || numericAmount <= 0) {
-    throw new Error('Valid ID, student, and contribution amount are required.');
+  const sanitizedAmount = Math.round((Number(amount) || 0) * 100) / 100;
+  const trimmedDocId = (id || '').trim();
+  const trimmedId = (studentId || '').trim();
+  const trimmedName = (studentName || '').trim();
+  const sanitizedNote = (note || '').trim().slice(0, 250);
+
+  if (!trimmedDocId) {
+    throw new Error('Valid contribution ID is required.');
+  }
+  if (!trimmedId || !trimmedName) {
+    throw new Error('Please select a valid student.');
+  }
+  if (isNaN(sanitizedAmount) || sanitizedAmount <= 0) {
+    throw new Error('Contribution amount must be greater than ₹0.');
+  }
+  if (sanitizedAmount > 10000000) {
+    throw new Error('Contribution amount exceeds allowable limit.');
   }
 
   if (isFirebaseConfigured() && db) {
-    const docRef = doc(db, 'contributions', id);
+    const docRef = doc(db, 'contributions', trimmedDocId);
     const existingSnap = await getDoc(docRef);
     const existingData = existingSnap.data() as Contribution | undefined;
 
     await setDoc(
       docRef,
       {
-        studentId,
-        studentName,
-        amount: numericAmount,
-        note: note || '',
+        studentId: trimmedId,
+        studentName: trimmedName,
+        amount: sanitizedAmount,
+        note: sanitizedNote,
         updatedAt: Date.now(),
         createdAt: existingData?.createdAt || Date.now(),
       },
@@ -405,7 +429,7 @@ export async function updateContribution(
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         action: 'update_contribution',
-        payload: { id, studentId, studentName, amount: numericAmount, note },
+        payload: { id: trimmedDocId, studentId: trimmedId, studentName: trimmedName, amount: sanitizedAmount, note: sanitizedNote },
       }),
     });
   } catch (e) {
@@ -414,13 +438,13 @@ export async function updateContribution(
 
   const current = getLocalItem<Contribution[]>('contributions', INITIAL_CONTRIBUTIONS);
   const updated = current.map((c) =>
-    c.id === id
+    c.id === trimmedDocId
       ? {
           ...c,
-          studentId,
-          studentName,
-          amount: numericAmount,
-          note: note || '',
+          studentId: trimmedId,
+          studentName: trimmedName,
+          amount: sanitizedAmount,
+          note: sanitizedNote,
           updatedAt: Date.now(),
         }
       : c
@@ -430,10 +454,11 @@ export async function updateContribution(
 }
 
 export async function deleteContribution(id: string): Promise<void> {
-  if (!id) throw new Error('Valid contribution ID is required.');
+  const trimmedDocId = (id || '').trim();
+  if (!trimmedDocId) throw new Error('Valid contribution ID is required.');
 
   if (isFirebaseConfigured() && db) {
-    await deleteDoc(doc(db, 'contributions', id));
+    await deleteDoc(doc(db, 'contributions', trimmedDocId));
     syncAndRecalculateAggregates().catch((err) =>
       console.warn('Background sync error after delete:', err)
     );
@@ -446,7 +471,7 @@ export async function deleteContribution(id: string): Promise<void> {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         action: 'delete_contribution',
-        payload: { id },
+        payload: { id: trimmedDocId },
       }),
     });
   } catch (e) {
@@ -454,7 +479,7 @@ export async function deleteContribution(id: string): Promise<void> {
   }
 
   const current = getLocalItem<Contribution[]>('contributions', INITIAL_CONTRIBUTIONS);
-  const updated = current.filter((c) => c.id !== id);
+  const updated = current.filter((c) => c.id !== trimmedDocId);
   setLocalItem('contributions', updated);
   await syncAndRecalculateAggregates();
 }
@@ -462,17 +487,28 @@ export async function deleteContribution(id: string): Promise<void> {
 export async function addStudent(name: string, rollNumber?: string): Promise<Student> {
   const trimmed = name.trim();
   if (!trimmed) throw new Error('Student name cannot be empty.');
+  if (trimmed.length > 100) throw new Error('Student name is too long.');
 
-  const newId = 'stu_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 5);
-  const newStudent: Student = {
-    id: newId,
-    name: trimmed,
-    rollNumber: rollNumber?.trim() || '',
-    active: true,
-    createdAt: Date.now(),
-  };
+  const sanitizedRoll = (rollNumber || '').trim().slice(0, 30);
 
   if (isFirebaseConfigured() && db) {
+    const studentsSnap = await getDocs(collection(db, 'students'));
+    const isDuplicate = studentsSnap.docs.some(
+      (d) => (d.data().name as string || '').toLowerCase().trim() === trimmed.toLowerCase()
+    );
+    if (isDuplicate) {
+      throw new Error(`Student "${trimmed}" already exists in the roster.`);
+    }
+
+    const newId = 'stu_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 5);
+    const newStudent: Student = {
+      id: newId,
+      name: trimmed,
+      rollNumber: sanitizedRoll,
+      active: true,
+      createdAt: Date.now(),
+    };
+
     await setDoc(doc(db, 'students', newId), {
       name: newStudent.name,
       rollNumber: newStudent.rollNumber,
@@ -482,28 +518,49 @@ export async function addStudent(name: string, rollNumber?: string): Promise<Stu
     return newStudent;
   }
 
+  const current = getLocalItem<Student[]>('students', INITIAL_STUDENTS_ROSTER);
+  const isDuplicate = current.some(
+    (s) => s.name.toLowerCase().trim() === trimmed.toLowerCase()
+  );
+  if (isDuplicate) {
+    throw new Error(`Student "${trimmed}" already exists in the roster.`);
+  }
+
+  const newId = 'stu_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 5);
+  const newStudent: Student = {
+    id: newId,
+    name: trimmed,
+    rollNumber: sanitizedRoll,
+    active: true,
+    createdAt: Date.now(),
+  };
+
   try {
     await fetch('/api/admin/data', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         action: 'add_student',
-        payload: { name: trimmed, rollNumber },
+        payload: { name: trimmed, rollNumber: sanitizedRoll },
       }),
     });
   } catch (e) {
     console.warn('API sync fallback to local:', e);
   }
 
-  const current = getLocalItem<Student[]>('students', INITIAL_STUDENTS_ROSTER);
   const updated = [...current, newStudent].sort((a, b) => a.name.localeCompare(b.name));
   setLocalItem('students', updated);
   return newStudent;
 }
 
 export async function updateCampaignTarget(target: number): Promise<void> {
-  const numericTarget = Number(target);
-  if (numericTarget <= 0) throw new Error('Campaign target must be greater than 0.');
+  const numericTarget = Math.round(Number(target) || 0);
+  if (isNaN(numericTarget) || numericTarget < 1000) {
+    throw new Error('Campaign target must be at least ₹1,000.');
+  }
+  if (numericTarget > 100000000) {
+    throw new Error('Campaign target exceeds maximum limit.');
+  }
 
   if (isFirebaseConfigured() && db) {
     await setDoc(

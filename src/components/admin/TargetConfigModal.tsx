@@ -29,8 +29,12 @@ function TargetConfigInnerForm({
     setError(null);
 
     const numeric = parseFloat(targetVal);
-    if (isNaN(numeric) || numeric <= 0) {
-      setError('Please enter a valid fundraising target greater than ₹0.');
+    if (isNaN(numeric) || numeric < 1000) {
+      setError('Please enter a valid fundraising target of at least ₹1,000.');
+      return;
+    }
+    if (numeric > 100000000) {
+      setError('Campaign target exceeds allowable limit.');
       return;
     }
 
@@ -48,15 +52,16 @@ function TargetConfigInnerForm({
   const presetTargets = [15000, 20000, 25000, 30000, 50000];
 
   return (
-    <div className="glass-panel w-full max-w-md rounded-3xl p-6 sm:p-8 border border-white/20 shadow-2xl relative bg-[#0D1322]">
+    <div className="craft-panel w-full max-w-md rounded-3xl p-6 sm:p-8 border border-white/[0.12] shadow-2xl relative bg-[#0C111C]">
       <button
         onClick={onClose}
-        className="absolute right-5 top-5 p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors"
+        disabled={loading}
+        className="absolute right-5 top-5 p-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-slate-400 hover:text-white transition-colors cursor-pointer disabled:opacity-50"
       >
         <X className="w-4 h-4" />
       </button>
 
-      <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4">
+      <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-4">
         <Target className="w-6 h-6" />
       </div>
 
@@ -74,28 +79,28 @@ function TargetConfigInnerForm({
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+          <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-2">
             Fundraising Target (₹)
           </label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 font-mono font-black text-slate-400 text-sm">
               ₹
             </span>
             <input
               type="number"
-              min="100"
-              step="100"
+              min="1000"
+              step="500"
               required
               value={targetVal}
               onChange={(e) => setTargetVal(e.target.value)}
-              className="w-full bg-[#0B0F19] border border-white/10 rounded-xl pl-9 pr-4 py-3 text-sm text-white font-mono font-bold focus:outline-none focus:border-amber-500 transition-all"
+              className="w-full bg-[#080C14] border border-white/[0.08] rounded-xl pl-9 pr-4 py-3 text-sm text-white font-mono font-bold focus:outline-none focus:border-amber-500 transition-all"
             />
           </div>
         </div>
 
         {/* Quick Presets */}
         <div>
-          <span className="text-[11px] font-semibold text-slate-400 mb-2 block">
+          <span className="text-[11px] font-mono font-semibold text-slate-400 mb-2 block">
             Quick Target Presets:
           </span>
           <div className="flex flex-wrap gap-2">
@@ -104,10 +109,10 @@ function TargetConfigInnerForm({
                 key={p}
                 type="button"
                 onClick={() => setTargetVal(p.toString())}
-                className={`px-2.5 py-1 rounded-lg border text-xs font-mono transition-all ${
+                className={`px-2.5 py-1 rounded-lg border text-xs font-mono transition-all cursor-pointer ${
                   targetVal === p.toString()
                     ? 'bg-amber-500 text-black font-bold border-amber-400'
-                    : 'bg-white/5 border-white/10 text-slate-400 hover:text-white'
+                    : 'bg-white/[0.04] border-white/[0.08] text-slate-300 hover:text-white'
                 }`}
               >
                 {formatCurrency(p)}
@@ -116,18 +121,19 @@ function TargetConfigInnerForm({
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+        <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/[0.08]">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-slate-300 transition-all"
+            disabled={loading}
+            className="px-4 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-xs font-semibold text-slate-300 transition-all cursor-pointer disabled:opacity-50"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-lg shadow-amber-500/20 disabled:opacity-50"
+            className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black text-xs font-mono font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-lg shadow-amber-500/20 disabled:opacity-50 cursor-pointer"
           >
             {loading ? (
               <div className="w-3.5 h-3.5 border-2 border-black border-t-transparent rounded-full animate-spin" />

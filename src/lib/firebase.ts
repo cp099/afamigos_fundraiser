@@ -1,5 +1,5 @@
 import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
-import { getAuth, type Auth } from 'firebase/auth';
+import { getAuth, setPersistence, browserLocalPersistence, type Auth } from 'firebase/auth';
 import { getFirestore, type Firestore } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -30,6 +30,13 @@ if (typeof window !== 'undefined' || isFirebaseConfigured()) {
       app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
       auth = getAuth(app);
       db = getFirestore(app);
+
+      // Ensure persistent sessions across browser tabs, windows, and devices
+      if (typeof window !== 'undefined' && auth) {
+        setPersistence(auth, browserLocalPersistence).catch((err) => {
+          console.warn('Firebase persistence note:', err);
+        });
+      }
     }
   } catch (error) {
     console.warn('Firebase client initialization note:', error);
