@@ -9,7 +9,7 @@ export function ImpactSection() {
       icon: BookOpen,
       title: 'School Fees, Uniforms & Books',
       desc: 'Sponsors school fees, uniform kits, textbooks, notebooks, school bags, shoes, and stationery so children from marginalized communities never drop out due to financial constraints.',
-      tag: '₹4,000 / Child / Year',
+      tag: '₹6,000 / Child / Year',
       iconColor: 'text-amber-400',
     },
     {
@@ -67,7 +67,7 @@ export function ImpactSection() {
         {/* Highlight Stats Ribbon */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 mb-8 sm:mb-12">
           <div className="craft-card rounded-xl sm:rounded-2xl p-3 sm:p-4 text-center">
-            <div className="text-xl sm:text-3xl font-mono font-black text-amber-400">₹4,000</div>
+            <div className="text-xl sm:text-3xl font-mono font-black text-amber-400">₹6,000</div>
             <div className="text-[10px] sm:text-[11px] text-slate-400 font-medium mt-0.5">Sponsors 1 Child for a Year</div>
           </div>
           <div className="craft-card rounded-xl sm:rounded-2xl p-3 sm:p-4 text-center">

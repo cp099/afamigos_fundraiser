@@ -93,7 +93,7 @@ export function AdminLoginForm() {
                 </div>
                 <div>
                   <div className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-                    ₹4,000 / Year Benchmark
+                    ₹6,000 / Year Benchmark
                   </div>
                   <div className="text-xs text-slate-400">
                     Sponsors 1 child&apos;s complete school fees, books, uniform &amp; nutrition.

@@ -19,8 +19,8 @@ export function HeroProgress({ data }: HeroProgressProps) {
   const milestone = getMilestoneInfo(percentage);
   const remaining = Math.max(0, target - totalRaised);
 
-  // ₹4,000 sponsors 1 student's education for an entire year through CSA
-  const studentsSponsored = (totalRaised / 4000).toFixed(1);
+  // ₹6,000 sponsors 1 student's education for an entire year through CSA
+  const studentsSponsored = (totalRaised / 6000).toFixed(1);
 
   const checkpoints = [
     { percent: 25, labelShort: '25%', labelFull: '25% Kickoff' },
@@ -80,7 +80,7 @@ export function HeroProgress({ data }: HeroProgressProps) {
         >
           <HeartHandshake className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 shrink-0" />
           <span className="leading-tight">
-            ₹4,000 = 1 Year of School Fees, Books, Uniforms &amp; Nutrition for 1 Child
+            ₹6,000 = 1 Year of School Fees, Books, Uniforms &amp; Nutrition for 1 Child
           </span>
         </motion.div>
 

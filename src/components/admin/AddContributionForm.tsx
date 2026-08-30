@@ -25,7 +25,7 @@ export function AddContributionForm({
 
   const amountInputRef = useRef<HTMLInputElement>(null);
 
-  const quickAmounts = [100, 200, 500, 1000, 2000, 4000];
+  const quickAmounts = [100, 200, 500, 1000, 2000, 6000];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
