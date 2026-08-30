@@ -339,7 +339,9 @@ export async function addContribution(
 
   if (isFirebaseConfigured() && db) {
     await setDoc(doc(db, 'contributions', newId), contributionData);
-    await syncAndRecalculateAggregates();
+    syncAndRecalculateAggregates().catch((err) =>
+      console.warn('Background sync error after add:', err)
+    );
     return;
   }
 
@@ -391,7 +393,9 @@ export async function updateContribution(
       },
       { merge: true }
     );
-    await syncAndRecalculateAggregates();
+    syncAndRecalculateAggregates().catch((err) =>
+      console.warn('Background sync error after update:', err)
+    );
     return;
   }
 
@@ -430,7 +434,9 @@ export async function deleteContribution(id: string): Promise<void> {
 
   if (isFirebaseConfigured() && db) {
     await deleteDoc(doc(db, 'contributions', id));
-    await syncAndRecalculateAggregates();
+    syncAndRecalculateAggregates().catch((err) =>
+      console.warn('Background sync error after delete:', err)
+    );
     return;
   }
 
