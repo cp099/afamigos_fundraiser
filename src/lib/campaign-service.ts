@@ -561,18 +561,6 @@ export async function initializeFirestoreSeed(): Promise<void> {
       await setDoc(campRef, INITIAL_CAMPAIGN_CONFIG);
     }
 
-    const contribSnap = await getDocs(collection(db, 'contributions'));
-    if (contribSnap.empty) {
-      for (const c of INITIAL_CONTRIBUTIONS) {
-        await setDoc(doc(db, 'contributions', c.id), {
-          studentId: c.studentId,
-          studentName: c.studentName,
-          amount: c.amount,
-          createdAt: c.createdAt,
-        });
-      }
-    }
-
     await syncAndRecalculateAggregates();
   } catch (err) {
     console.warn('Seed initialization notice:', err);

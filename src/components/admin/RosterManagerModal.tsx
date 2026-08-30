@@ -168,8 +168,8 @@ export function RosterManagerModal({
                   )}
                 </div>
               </div>
-              <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                Active
+              <span className="text-[10px] text-slate-500 font-mono">
+                {student.id.replace('stu_', '#')}
               </span>
             </div>
           ))}

@@ -105,81 +105,8 @@ export const INITIAL_STUDENTS_ROSTER: Student[] = OFFICIAL_CLASS_NAMES.map((name
   };
 });
 
-// Initial sample contributions (to demonstrate podium & leaderboard)
-export const INITIAL_CONTRIBUTIONS: Contribution[] = [
-  {
-    id: 'c_01',
-    studentId: 'stu_20', // Chirag P Patil
-    studentName: 'Chirag P Patil',
-    amount: 4000,
-    createdAt: 1714580000000,
-    note: 'Initial seed contribution',
-  },
-  {
-    id: 'c_02',
-    studentId: 'stu_04', // Aditi Menon
-    studentName: 'Aditi Menon',
-    amount: 3000,
-    createdAt: 1714582000000,
-    note: 'Class drive kickoff',
-  },
-  {
-    id: 'c_03',
-    studentId: 'stu_01', // Aakanksh K S
-    studentName: 'Aakanksh K S',
-    amount: 2500,
-    createdAt: 1714584000000,
-  },
-  {
-    id: 'c_04',
-    studentId: 'stu_14', // Aviral Agarwal
-    studentName: 'Aviral Agarwal',
-    amount: 2000,
-    createdAt: 1714586000000,
-  },
-  {
-    id: 'c_05',
-    studentId: 'stu_10', // Annamraju Sree Gnana Prasuna
-    studentName: 'Annamraju Sree Gnana Prasuna',
-    amount: 1500,
-    createdAt: 1714588000000,
-  },
-  {
-    id: 'c_06',
-    studentId: 'stu_26', // Dhruv Krishnamurthy
-    studentName: 'Dhruv Krishnamurthy',
-    amount: 1200,
-    createdAt: 1714590000000,
-  },
-  {
-    id: 'c_07',
-    studentId: 'stu_37', // Khushi Holla
-    studentName: 'Khushi Holla',
-    amount: 1000,
-    createdAt: 1714592000000,
-  },
-  {
-    id: 'c_08',
-    studentId: 'stu_45', // Mansahib Singh Oberoi
-    studentName: 'Mansahib Singh Oberoi',
-    amount: 800,
-    createdAt: 1714594000000,
-  },
-  {
-    id: 'c_09',
-    studentId: 'stu_59', // Saksham Takiar
-    studentName: 'Saksham Takiar',
-    amount: 500,
-    createdAt: 1714596000000,
-  },
-  {
-    id: 'c_10',
-    studentId: 'stu_72', // Thejas Ayyavu Saravanan
-    studentName: 'Thejas Ayyavu Saravanan',
-    amount: 500,
-    createdAt: 1714598000000,
-  },
-];
+// Production clean start: 0 initial contributions
+export const INITIAL_CONTRIBUTIONS: Contribution[] = [];
 
 export const INITIAL_PUBLIC_DATA: PublicCampaignData = calculatePublicAggregates(
   INITIAL_CAMPAIGN_CONFIG.target,
