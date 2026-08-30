@@ -1,86 +1,79 @@
 # AFAmigos — Child Sponsorship Program Fundraiser
 
-> **One Class. One Goal. One Impact.**
-> A production-ready real-time web application to gamify our classroom fundraising campaign for the **Child Sponsorship Program (CSA)**.
+> **One Class. One Goal. One Impact.**  
+> A real-time fundraising platform for the **Child Sponsorship Programme (CSP)** organized by the **Centre for Social Action (CSA)** at **CHRIST (Deemed to be University)**.
 
 ---
 
-## 🌟 Key Features
+## 🌟 Overview
 
-- **⚡ Public Campaign Landing (`/`)**:
-  - Live animated total raised counter (`₹18,450 of ₹25,000 raised`).
-  - Dynamic progress bar with glow effects & percentage display (`73.8% of goal`).
-  - Unique contributor counter (`42 contributors`).
-  - Dynamic milestone messages based on campaign progress (0-24%, 25-49%, 50-74%, 75-89%, 90-99%, 100%+).
-  - Target-achieved celebration with multi-stage confetti explosion.
-  - **AFAmigos Leaderboard**:
-    - Top 3 Podium layout (🥇 1st Elevated Gold Center, 🥈 2nd Silver Left, 🥉 3rd Bronze Right).
-    - Ranks 4+ clean searchable list with deterministic tie indicators (1-2-2-4 standard competition ranking).
-    - **Zero-leak privacy guarantee**: Individual donation amounts are never exposed in state, HTML, API queries, or network payloads.
-
-- **🛡️ Private Admin Console (`/admin`)**:
-  - Firebase Authentication guard with branded login.
-  - Comprehensive metrics bar (Total funds raised, Target editor, Progress %, Contributor count, Total transaction count).
-  - **Rapid Contribution Entry Form**: Searchable student dropdown from class roster, quick shortcut chips (+₹100, +₹500, +₹1,000, +₹2,000), continuous focus mode for rapid entry during live drives.
-  - **Contribution History Table**: Private table showing Student Name, Private Amount (₹), Date & Time, Edit, and Delete modal with safe confirmation.
-  - **Class Roster Management**: Modal to add and manage students, eliminating spelling inconsistencies.
-  - **Force Sync Aggregates**: One-click integrity tool to recalculate and sync sanitized public documents.
+This platform enables the **AFA MIGOS** student collective to conduct a transparent, classroom-driven fundraising initiative for the Child Sponsorship Programme (CSP). CSP provides comprehensive educational support (school fees, textbooks, uniforms, after-school tutoring, health camps, and nutrition) to 800+ underprivileged children across Bengaluru urban slum communities at a benchmark of **₹6,000 per child per year**.
 
 ---
 
-## 🔒 Strict Privacy & Security Architecture
+## 💎 Features
 
-1. **Firestore Security Model**:
-   - `/public_campaign/afamigos_fundraiser`: Publicly readable sanitized aggregate document containing `{ target, totalRaised, contributorCount, percentage, currentMilestone, leaderboard: [{ studentId, name, rank, isTie }] }`.
-   - `/contributions/{id}`: Locked to authenticated administrators (`allow read, write: if request.auth != null`).
-   - `/students/{id}`: Locked to authenticated administrators.
-2. **Deterministic Tie Handling**:
-   - Students with identical total amounts receive the same ranking value with standard competition skipping (1, 2, 2, 4) and stable alphabetical tie-break.
+- **⚡ Public Campaign Dashboard (`/`)**:
+  - Live animated total raised counter with smooth milestone tracking.
+  - Interactive Olympic Podium for Top 3 student contributors (#2 Left, #1 Center Champion, #3 Right).
+  - Strictly unique sequential rankings (1, 2, 3, 4...) with deterministic tie-breaking.
+  - **Strict Zero-Leak Privacy Guarantee**: Individual contribution amounts are completely private and never exposed to the public.
+
+- **🛡️ Protected Admin Portal (`/admin`)**:
+  - Direct hidden portal route with secure Firebase Authentication.
+  - Multi-session and multi-device persistence.
+  - Instant searchable student autocomplete combobox across the full official 80-student roster.
+  - Live real-time contribution logging, editing, and deletion with instant Firestore sync.
+  - Dynamic campaign target goal configuration.
 
 ---
 
-## 🚀 Getting Started
+## 🔒 Security Architecture
 
-### 1. Installation
+1. **Firestore Security Rules**:
+   - `/public_campaign/afamigos_fundraiser`: Publicly readable sanitized aggregates with zero individual amount fields.
+   - `/contributions/{id}` & `/students/{id}`: Strictly restricted to authenticated administrators (`allow read, write: if request.auth != null`).
+   - `/campaigns/{id}`: Protected configuration document.
+
+2. **HTTP Security Headers**:
+   - Automated HSTS (Strict-Transport-Security), X-Frame-Options (SAMEORIGIN), X-Content-Type-Options (nosniff), and Permissions-Policy enforcement in `next.config.ts`.
+
+---
+
+## 🚀 Development & Build
+
+### Installation
 ```bash
 npm install
 ```
 
-### 2. Environment Variables (Optional for Live Firebase)
-Create `.env.local` based on `.env.example`:
+### Environment Configuration
+Create `.env.local` using the template below:
 ```env
 NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
 ```
 
-> **Note**: If Firebase environment variables are not set, the app seamlessly runs in **Local Preview / Demo Mode**, enabling full interactive testing with pre-loaded mock data and cross-tab updates.
-
-### 3. Run Development Server
+### Run Locally
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) for the Public Campaign and [http://localhost:3000/admin](http://localhost:3000/admin) for the Admin Console.
 
-### 4. Run Automated Privacy & Logic Tests
+### Run Tests & Validation
 ```bash
 npm test
-```
-
-### 5. Production Build
-```bash
+npm run lint
 npm run build
 ```
 
 ---
 
-## 🌐 Deploying to Vercel
-
-1. Push your repository to GitHub.
-2. Import the repository into [Vercel](https://vercel.com).
-3. Add the Firebase environment variables under Project Settings -> Environment Variables.
-4. Deploy! Zero additional configuration required.
+## 📜 Copyright & Attribution
+&copy; {new Date().getFullYear()} **Chirag P Patil (cp099)**. All rights reserved.  
+Classroom Collective: **AFA MIGOS**  
+Organized by: **Centre for Social Action (CSA), CHRIST (Deemed to be University), Bengaluru, India**.
