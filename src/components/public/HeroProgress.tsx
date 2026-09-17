@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, Target, CheckCircle2, ChevronRight, TrendingUp, Sparkles, GraduationCap, HeartHandshake } from 'lucide-react';
+import { Users, Target, CheckCircle2, ChevronRight, TrendingUp, Sparkles, GraduationCap, HeartHandshake, Trophy, ArrowDown } from 'lucide-react';
 import { PublicCampaignData } from '@/lib/types';
 import { formatCurrency, getMilestoneInfo } from '@/lib/utils';
 import { AnimatedCounter } from '../ui/AnimatedCounter';
@@ -39,7 +39,7 @@ export function HeroProgress({ data }: HeroProgressProps) {
           transition={{ duration: 0.4 }}
           className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-semibold text-slate-300 mb-4 sm:mb-6 shadow-inner max-w-full"
         >
-          <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
+          <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" aria-hidden="true" />
           <span className="font-mono uppercase tracking-widest text-[9px] sm:text-[11px] text-slate-300 truncate">
             AFA MIGOS • Class Contribution Drive • CSA, CHRIST (Deemed to be University)
           </span>
@@ -76,19 +76,42 @@ export function HeroProgress({ data }: HeroProgressProps) {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, delay: 0.18 }}
-          className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl bg-amber-500/[0.08] border border-amber-400/20 text-amber-300 text-[10px] sm:text-xs font-mono font-semibold mb-6 sm:mb-8 max-w-full text-center"
+          className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl bg-amber-500/[0.08] border border-amber-400/20 text-amber-300 text-[10px] sm:text-xs font-mono font-semibold mb-6 max-w-full text-center"
         >
-          <HeartHandshake className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 shrink-0" />
+          <HeartHandshake className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 shrink-0" aria-hidden="true" />
           <span className="leading-tight">
             ₹6,000 = 1 Year of School Fees, Books, Uniforms &amp; Nutrition for 1 Child
           </span>
+        </motion.div>
+
+        {/* Primary Call to Action Button Group */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="flex flex-wrap items-center justify-center gap-3 mb-8"
+        >
+          <a
+            href="#leaderboard"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 active:scale-95 cursor-pointer"
+          >
+            <Trophy className="w-4 h-4 text-slate-950 shrink-0" aria-hidden="true" />
+            <span>Explore Live Leaderboard</span>
+          </a>
+          <a
+            href="#impact"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] text-white font-mono font-semibold text-xs sm:text-sm transition-all cursor-pointer"
+          >
+            <span>The CSP Mission</span>
+            <ArrowDown className="w-3.5 h-3.5 text-slate-400 shrink-0" aria-hidden="true" />
+          </a>
         </motion.div>
 
         {/* Milestone Badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, delay: 0.22 }}
+          transition={{ duration: 0.4, delay: 0.24 }}
           className="mb-8 sm:mb-10"
         >
           <MilestoneBadge milestone={milestone} percentage={percentage} />
@@ -194,7 +217,7 @@ export function HeroProgress({ data }: HeroProgressProps) {
                       />
                       <span
                         className={`font-mono text-[8px] sm:text-[10px] whitespace-nowrap ${
-                          passed ? 'text-amber-300 font-bold' : 'text-slate-500'
+                          passed ? 'text-amber-300 font-bold' : 'text-slate-400'
                         }`}
                       >
                         <span className="inline sm:hidden">{cp.labelShort}</span>

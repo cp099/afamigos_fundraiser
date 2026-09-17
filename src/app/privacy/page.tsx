@@ -1,9 +1,15 @@
-'use client';
-
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, Shield, Lock, EyeOff, Server, Database, CheckCircle2 } from 'lucide-react';
-import { motion } from 'framer-motion';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description: 'Zero-Leak Financial Privacy Guarantee and data policy for the AFA MIGOS Child Sponsorship Campaign.',
+  alternates: {
+    canonical: '/privacy',
+  },
+};
 
 export default function PrivacyPage() {
   return (
@@ -16,34 +22,29 @@ export default function PrivacyPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-300 hover:text-white transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4" aria-hidden="true" />
             <span>Back to Campaign</span>
           </Link>
-          <span className="text-xs font-mono text-slate-500">Privacy Policy</span>
+          <span className="text-xs font-mono text-slate-400">Privacy Policy</span>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="flex-grow max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 w-full relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-8"
-        >
+        <div className="space-y-8 animate-fadeIn">
           {/* Header Card */}
           <div className="craft-panel rounded-3xl p-6 sm:p-10 border border-white/[0.1] shadow-2xl relative bg-[#0C111C]">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/[0.08] border border-emerald-500/20 text-emerald-300 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-3">
-              <Shield className="w-3.5 h-3.5 text-emerald-400" />
+              <Shield className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" />
               <span>Zero-Leak Financial Privacy Guarantee</span>
             </div>
             <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
               Privacy Policy
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 font-mono mt-1">
-              Last updated: {new Date().toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}
+              Last updated: September 2026
             </p>
             <p className="text-xs sm:text-sm text-slate-300 mt-4 leading-relaxed">
               This Privacy Policy describes how the <strong className="text-white">AFA MIGOS</strong> fundraiser application collects,
@@ -57,7 +58,7 @@ export default function PrivacyPage() {
           <div className="space-y-6">
             <div className="craft-card rounded-2xl p-6 border border-white/[0.08] space-y-3">
               <div className="flex items-center gap-3 text-amber-400">
-                <EyeOff className="w-5 h-5" />
+                <EyeOff className="w-5 h-5 shrink-0" aria-hidden="true" />
                 <h2 className="text-base font-bold text-white">1. Strict Zero-Leak Financial Privacy</h2>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -69,7 +70,7 @@ export default function PrivacyPage() {
 
             <div className="craft-card rounded-2xl p-6 border border-white/[0.08] space-y-3">
               <div className="flex items-center gap-3 text-indigo-400">
-                <Database className="w-5 h-5" />
+                <Database className="w-5 h-5 shrink-0" aria-hidden="true" />
                 <h2 className="text-base font-bold text-white">2. Data Collection &amp; Aggregates</h2>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -77,15 +78,15 @@ export default function PrivacyPage() {
               </p>
               <ul className="text-xs sm:text-sm text-slate-300 space-y-2 pl-4">
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" aria-hidden="true" />
                   <span>Total classroom funds raised towards the campaign goal.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" aria-hidden="true" />
                   <span>Unique count of student contributors.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" aria-hidden="true" />
                   <span>Deterministic sequential ranks for the student leaderboard.</span>
                 </li>
               </ul>
@@ -93,7 +94,7 @@ export default function PrivacyPage() {
 
             <div className="craft-card rounded-2xl p-6 border border-white/[0.08] space-y-3">
               <div className="flex items-center gap-3 text-emerald-400">
-                <Lock className="w-5 h-5" />
+                <Lock className="w-5 h-5 shrink-0" aria-hidden="true" />
                 <h2 className="text-base font-bold text-white">3. Security &amp; Access Controls</h2>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -105,7 +106,7 @@ export default function PrivacyPage() {
 
             <div className="craft-card rounded-2xl p-6 border border-white/[0.08] space-y-3">
               <div className="flex items-center gap-3 text-rose-400">
-                <Server className="w-5 h-5" />
+                <Server className="w-5 h-5 shrink-0" aria-hidden="true" />
                 <h2 className="text-base font-bold text-white">4. Data Sharing &amp; Third Parties</h2>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -114,11 +115,11 @@ export default function PrivacyPage() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </main>
 
       {/* Minimal Footer */}
-      <footer className="border-t border-white/[0.08] py-6 text-center text-xs font-mono text-slate-500">
+      <footer className="border-t border-white/[0.08] py-6 text-center text-xs font-mono text-slate-400">
         &copy; {new Date().getFullYear()} Chirag P Patil (cp099) • AFA MIGOS
       </footer>
     </div>

@@ -1,9 +1,15 @@
-'use client';
-
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, FileText, CheckCircle2, HeartHandshake, ShieldAlert, Award } from 'lucide-react';
-import { motion } from 'framer-motion';
+
+export const metadata: Metadata = {
+  title: 'Terms of Use',
+  description: 'Campaign guidelines and Terms of Use for the AFA MIGOS Child Sponsorship Fundraising drive.',
+  alternates: {
+    canonical: '/terms',
+  },
+};
 
 export default function TermsPage() {
   return (
@@ -16,34 +22,29 @@ export default function TermsPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-300 hover:text-white transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4" aria-hidden="true" />
             <span>Back to Campaign</span>
           </Link>
-          <span className="text-xs font-mono text-slate-500">Terms of Use</span>
+          <span className="text-xs font-mono text-slate-400">Terms of Use</span>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="flex-grow max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 w-full relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-8"
-        >
+        <div className="space-y-8 animate-fadeIn">
           {/* Header Card */}
           <div className="craft-panel rounded-3xl p-6 sm:p-10 border border-white/[0.1] shadow-2xl relative bg-[#0C111C]">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/[0.08] border border-indigo-500/20 text-indigo-300 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-3">
-              <FileText className="w-3.5 h-3.5 text-indigo-400" />
+              <FileText className="w-3.5 h-3.5 text-indigo-400" aria-hidden="true" />
               <span>Campaign Guidelines &amp; Terms</span>
             </div>
             <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
               Terms of Use
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 font-mono mt-1">
-              Effective as of: {new Date().toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}
+              Effective as of: September 2026
             </p>
             <p className="text-xs sm:text-sm text-slate-300 mt-4 leading-relaxed">
               By accessing or participating in this fundraising platform, you agree to these Terms of Use governing the{' '}
@@ -57,7 +58,7 @@ export default function TermsPage() {
           <div className="space-y-6">
             <div className="craft-card rounded-2xl p-6 border border-white/[0.08] space-y-3">
               <div className="flex items-center gap-3 text-amber-400">
-                <HeartHandshake className="w-5 h-5" />
+                <HeartHandshake className="w-5 h-5 shrink-0" aria-hidden="true" />
                 <h2 className="text-base font-bold text-white">1. Voluntary Community Participation</h2>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -68,7 +69,7 @@ export default function TermsPage() {
 
             <div className="craft-card rounded-2xl p-6 border border-white/[0.08] space-y-3">
               <div className="flex items-center gap-3 text-indigo-400">
-                <CheckCircle2 className="w-5 h-5" />
+                <CheckCircle2 className="w-5 h-5 shrink-0" aria-hidden="true" />
                 <h2 className="text-base font-bold text-white">2. Allocation of Funds</h2>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -80,7 +81,7 @@ export default function TermsPage() {
 
             <div className="craft-card rounded-2xl p-6 border border-white/[0.08] space-y-3">
               <div className="flex items-center gap-3 text-emerald-400">
-                <Award className="w-5 h-5" />
+                <Award className="w-5 h-5 shrink-0" aria-hidden="true" />
                 <h2 className="text-base font-bold text-white">3. Leaderboard &amp; Ranking System</h2>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -91,7 +92,7 @@ export default function TermsPage() {
 
             <div className="craft-card rounded-2xl p-6 border border-white/[0.08] space-y-3">
               <div className="flex items-center gap-3 text-rose-400">
-                <ShieldAlert className="w-5 h-5" />
+                <ShieldAlert className="w-5 h-5 shrink-0" aria-hidden="true" />
                 <h2 className="text-base font-bold text-white">4. Intellectual Property &amp; Attribution</h2>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -101,11 +102,11 @@ export default function TermsPage() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </main>
 
       {/* Minimal Footer */}
-      <footer className="border-t border-white/[0.08] py-6 text-center text-xs font-mono text-slate-500">
+      <footer className="border-t border-white/[0.08] py-6 text-center text-xs font-mono text-slate-400">
         &copy; {new Date().getFullYear()} Chirag P Patil (cp099) • AFA MIGOS
       </footer>
     </div>

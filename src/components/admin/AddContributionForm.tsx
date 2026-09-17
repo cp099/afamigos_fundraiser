@@ -23,6 +23,9 @@ export function AddContributionForm({
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const [honeypot, setHoneypot] = useState<string>('');
+  const lastSubmitTimeRef = useRef<number>(0);
+
   const amountInputRef = useRef<HTMLInputElement>(null);
 
   const quickAmounts = [100, 200, 500, 1000, 2000, 6000];
@@ -31,6 +34,19 @@ export function AddContributionForm({
     e.preventDefault();
     setError(null);
     setSuccessMessage(null);
+
+    // Spam honeypot detection
+    if (honeypot) {
+      console.warn('Bot submission blocked.');
+      return;
+    }
+
+    // Rapid double-click debounce (minimum 400ms between attempts)
+    const now = Date.now();
+    if (now - lastSubmitTimeRef.current < 400) {
+      return;
+    }
+    lastSubmitTimeRef.current = now;
 
     const numericAmount = parseFloat(amount);
     if (!selectedStudentId) {
@@ -108,6 +124,18 @@ export function AddContributionForm({
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Anti-spam honeypot */}
+        <input
+          type="text"
+          name="user_ref_hp"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          className="hidden"
+          aria-hidden="true"
+        />
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
           {/* Searchable Student Autocomplete */}
           <div>

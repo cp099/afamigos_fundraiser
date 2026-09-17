@@ -1,9 +1,15 @@
-'use client';
-
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, Sparkles, Terminal, Code2, ShieldCheck, HeartHandshake, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
+
+export const metadata: Metadata = {
+  title: 'About the Developer — Chirag P Patil',
+  description: 'Learn about lead developer Chirag P Patil (@cp099) and the engineering behind the AFA MIGOS fundraiser platform.',
+  alternates: {
+    canonical: '/about-developer',
+  },
+};
 
 export default function AboutDeveloperPage() {
   return (
@@ -16,23 +22,18 @@ export default function AboutDeveloperPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-300 hover:text-white transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4" aria-hidden="true" />
             <span>Back to Campaign</span>
           </Link>
-          <span className="text-xs font-mono text-slate-500">Developer Profile</span>
+          <span className="text-xs font-mono text-slate-400">Developer Profile</span>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="flex-grow max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 w-full relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-8"
-        >
+        <div className="space-y-8 animate-fadeIn">
           {/* Hero Profile Card */}
           <div className="craft-panel rounded-3xl p-6 sm:p-10 border border-white/[0.1] shadow-2xl relative overflow-hidden bg-[#0C111C]">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8">
@@ -46,7 +47,7 @@ export default function AboutDeveloperPage() {
               {/* Developer Details */}
               <div className="min-w-0 flex-1">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/[0.08] border border-amber-500/20 text-amber-300 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" aria-hidden="true" />
                   <span>Lead Developer &amp; Architect</span>
                 </div>
                 <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
@@ -69,11 +70,11 @@ export default function AboutDeveloperPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.08] text-xs font-mono text-white font-semibold transition-all"
                   >
-                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
                     </svg>
                     <span>GitHub @cp099</span>
-                    <ExternalLink className="w-3 h-3 text-slate-400" />
+                    <ExternalLink className="w-3 h-3 text-slate-400" aria-hidden="true" />
                   </a>
                   <a
                     href="https://github.com/cp099/afamigos_fundraiser"
@@ -81,9 +82,9 @@ export default function AboutDeveloperPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-mono text-white font-semibold transition-all shadow-md"
                   >
-                    <Terminal className="w-3.5 h-3.5" />
+                    <Terminal className="w-3.5 h-3.5" aria-hidden="true" />
                     <span>View Project Source</span>
-                    <ExternalLink className="w-3 h-3 text-indigo-200" />
+                    <ExternalLink className="w-3 h-3 text-indigo-200" aria-hidden="true" />
                   </a>
                 </div>
               </div>
@@ -94,39 +95,39 @@ export default function AboutDeveloperPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="craft-card rounded-2xl p-5 border border-white/[0.08]">
               <div className="w-9 h-9 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-3">
-                <Code2 className="w-4 h-4" />
+                <Code2 className="w-4 h-4" aria-hidden="true" />
               </div>
-              <h3 className="text-sm font-bold text-white mb-1">Modern Architecture</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Engineered with Next.js 16 (App Router), TypeScript, Tailwind CSS, and Framer Motion for responsive 60fps animations.
+              <h2 className="text-sm font-bold text-white mb-1">Modern Architecture</h2>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Engineered with Next.js 16 (App Router), TypeScript, Tailwind CSS, and optimized bundle sizes for responsive 60fps animations.
               </p>
             </div>
 
             <div className="craft-card rounded-2xl p-5 border border-white/[0.08]">
               <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-3">
-                <ShieldCheck className="w-4 h-4" />
+                <ShieldCheck className="w-4 h-4" aria-hidden="true" />
               </div>
-              <h3 className="text-sm font-bold text-white mb-1">Privacy Architecture</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h2 className="text-sm font-bold text-white mb-1">Privacy Architecture</h2>
+              <p className="text-xs text-slate-300 leading-relaxed">
                 Zero-leak aggregate calculations guarantee that student contribution amounts remain strictly private and confidential.
               </p>
             </div>
 
             <div className="craft-card rounded-2xl p-5 border border-white/[0.08]">
               <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-3">
-                <HeartHandshake className="w-4 h-4" />
+                <HeartHandshake className="w-4 h-4" aria-hidden="true" />
               </div>
-              <h3 className="text-sm font-bold text-white mb-1">Community Impact</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h2 className="text-sm font-bold text-white mb-1">Community Impact</h2>
+              <p className="text-xs text-slate-300 leading-relaxed">
                 Designed to rally class spirit and fund full-year sponsorships for underprivileged children in Bengaluru slum communities.
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </main>
 
       {/* Minimal Footer */}
-      <footer className="border-t border-white/[0.08] py-6 text-center text-xs font-mono text-slate-500">
+      <footer className="border-t border-white/[0.08] py-6 text-center text-xs font-mono text-slate-400">
         &copy; {new Date().getFullYear()} Chirag P Patil (cp099) • AFA MIGOS
       </footer>
     </div>

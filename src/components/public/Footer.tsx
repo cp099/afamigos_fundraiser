@@ -46,7 +46,7 @@ export function Footer() {
               className="hover:text-white transition-colors flex items-center gap-1.5 text-slate-300"
             >
               <span>Official CSA Portal</span>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400" aria-hidden="true" />
             </a>
           </div>
         </div>
